@@ -565,7 +565,7 @@ $$
 
 $$
 
-E-step
+E-step\\
 
 (1)\ \beta_t(j)=p(o_{t+1}...o_T\vert x_t=j)\\
 
