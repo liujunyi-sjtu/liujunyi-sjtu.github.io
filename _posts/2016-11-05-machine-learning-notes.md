@@ -508,9 +508,9 @@ $$
 
 $$
 
-p(x_i\vert x_{i-1},x...,o...)=p(x_i\vert x_{i-1})
+p(x_i\vert x_{i-1},x...,o...)=p(x_i\vert x_{i-1})\\
 
-p(x_{i+1}\vert x_i)=p(x_{j+1}\vert x_j)\forall i,j
+p(x_{i+1}\vert x_i)=p(x_{j+1}\vert x_j)\forall i,j\\
 
 p(o_t\vert x_t,x...,o...)=p(o_t\vert x_t)
 
@@ -522,7 +522,7 @@ $$
 
 $$
 
-b_{ij}=p(o_t=j\vert x_t=i)
+b_{ij}=p(o_t=j\vert x_t=i)\\
 
 a_{ij}=p(x_t=j\vert x_{t-1}=i)
 
@@ -532,19 +532,19 @@ $$
 
 $$
 
-\alpha_{t+1}(j)=p(x_{t+1}=j,o_1...o_{t+1})=p(o_1...o_{t+1}\vert x_{t+1}=j)p(x_{t+1}=j)
+\alpha_{t+1}(j)=p(x_{t+1}=j,o_1...o_{t+1})=p(o_1...o_{t+1}\vert x_{t+1}=j)p(x_{t+1}=j)\\
+ 
+=p(o_{t+1}\vert x_{t+1}=j)p(o_1...o_{t}\vert x_{t+1}=j)p(x_{t+1}=j)\\
 
-=p(o_{t+1}\vert x_{t+1}=j)p(o_1...o_{t}\vert x_{t+1}=j)p(x_{t+1}=j)
+=p(o_{t+1}\vert x_{t+1}=j)p(o_1...o_{t},x_{t+1}=j)\\
 
-=p(o_{t+1}\vert x_{t+1}=j)p(o_1...o_{t},x_{t+1}=j)
+=p(o_{t+1}\vert x_{t+1}=j)\sum_ip(o_1...o_{t},x_t=i,x_{t+1}=j)\\
 
-=p(o_{t+1}\vert x_{t+1}=j)\sum_ip(o_1...o_{t},x_t=i,x_{t+1}=j)
+=p(o_{t+1}\vert x_{t+1}=j)\sum_ip(o_1...o_{t},x_t=i)p(x_{t+1}=j\vert x_t=i,o_1...o_t)\\
 
-=p(o_{t+1}\vert x_{t+1}=j)\sum_ip(o_1...o_{t},x_t=i)p(x_{t+1}=j\vert x_t=i,o_1...o_t)
+=p(o_{t+1}\vert x_{t+1}=j)\sum_ip(o_1...o_{t},x_t=i)p(x_{t+1}=j\vert x_t=i)\\
 
-=p(o_{t+1}\vert x_{t+1}=j)\sum_ip(o_1...o_{t},x_t=i)p(x_{t+1}=j\vert x_t=i)
-
-\alpha_{t+1}(j)=b_{jo_t}\sum_i \alpha_t(i)a_{ij}
+\alpha_{t+1}(j)=b_{jo_t}\sum_i \alpha_t(i)a_{ij}\\
 
 p(o_1...o_T)=\sum_j a_T(j)
 
@@ -554,7 +554,7 @@ $$
 
 $$
 
-pr(x_1...x_t=j\vert o_1...o_t)=max_{x_{1..t-1}}\ p(x_1...x_t=j\vert o_1...o_t)
+pr(x_1...x_t=j\vert o_1...o_t)=max_{x_{1..t-1}}\ p(x_1...x_t=j\vert o_1...o_t)\\
 
 =max_i\ pr(x_1...x_{t-1}=i\vert o_1..o_{t-1})p(x_t=j\vert x_{t-1}=i)p(o_t\vert x_t=j)
 
@@ -567,33 +567,33 @@ $$
 
 E-step
 
-(1)\ \beta_t(j)=p(o_{t+1}...o_T\vert x_t=j)
+(1)\ \beta_t(j)=p(o_{t+1}...o_T\vert x_t=j)\\
 
-=\sum_i p(o_{t+2}...o_T\vert x_{t+1}=i)p(o_{t+1}\vert x_{t+1}=i)p(x_{t+1}=i\vert x_t=j)
+=\sum_i p(o_{t+2}...o_T\vert x_{t+1}=i)p(o_{t+1}\vert x_{t+1}=i)p(x_{t+1}=i\vert x_t=j)\\
 
-=\sum_i \beta_{t+1}(i)b_{io_{t+1}}a_{ji}
+=\sum_i \beta_{t+1}(i)b_{io_{t+1}}a_{ji}\\
 
-\beta_T(i)=1
+\beta_T(i)=1\\
 
-(2)\ \xi_t(i,j)=p(x_{t+1}=j,x_t=i\vert O)
+(2)\ \xi_t(i,j)=p(x_{t+1}=j,x_t=i\vert O)\\
 
-=\frac{p(x_{t+1}=j, x_t=i, O)}{p(O)}
+=\frac{p(x_{t+1}=j, x_t=i, O)}{p(O)}\\
 
-=\frac{\alpha_t(i)a_{ij}\beta_{t+1}(j)b_{jo_{t+1}}}{\sum_i \sum_j \alpha_t(i)a_{ij}\beta_{t+1}(j)b_{jo_{t+1}}}
+=\frac{\alpha_t(i)a_{ij}\beta_{t+1}(j)b_{jo_{t+1}}}{\sum_i \sum_j \alpha_t(i)a_{ij}\beta_{t+1}(j)b_{jo_{t+1}}}\\
 
-(3)\ \gamma_t(i)=p(x_t=i\vert O)
+(3)\ \gamma_t(i)=p(x_t=i\vert O)\\
 
-=\frac{\alpha_t(i)\beta_t(i)}{\sum_i\alpha_t(i)\beta_t(i)}
+=\frac{\alpha_t(i)\beta_t(i)}{\sum_i\alpha_t(i)\beta_t(i)}\\
 
-=\sum_j\xi_t(i,j)
+=\sum_j\xi_t(i,j)\\
 
-M-step
+M-step\\
 
-(4)update
+(4)update\\
 
-\pi'(i)=\gamma_1(i)
+\pi'(i)=\gamma_1(i)\\
 
-a_{ij}'=\frac{\sum_t\xi_t(i,j)}{\sum_t\gamma_t(i)}
+a_{ij}'=\frac{\sum_t\xi_t(i,j)}{\sum_t\gamma_t(i)}\\
 
 b_{ij}'=\frac{\sum_{t,o_t=j}\gamma_t(i)}{\sum_{t}\gamma_t(i)}
 
@@ -609,9 +609,9 @@ $$
 
 $$
 
-p(x\vert y)\sim N
+p(x\vert y)\sim N\\
 
-p(xy)=p(x\vert y)p(y)=p(y\vert x)p(x)
+p(xy)=p(x\vert y)p(y)=p(y\vert x)p(x)\\
 
 p(x)=\sum_i p(x\vert y_i)p(y_i)
 
@@ -621,7 +621,7 @@ naive bayes算法的内容是从训练数据中找到p(x\vert y)和p(y)的分布
 
 $$
 
-find\ p(x\vert y)\ and\ p(y)\ so
+find\ p(x\vert y)\ and\ p(y)\ so\\
 
 p(y_i\vert x) = \frac{p(x\vert y_i)p(y_i)}{p(x)}
 
@@ -631,7 +631,7 @@ $$
 
 $$
 
-1.\ x_i=x_i^{(1)}...x_i^{(n)},p(x\vert y_i)=\prod_j p(x^{(j)}=x_i^{(j)}\vert y_i)
+1.\ x_i=x_i^{(1)}...x_i^{(n)},p(x\vert y_i)=\prod_j p(x^{(j)}=x_i^{(j)}\vert y_i)\\
 
 2.\ x_i=x_i^{(1)}...x_i^{(n_i)},p(x\vert y_i)=\prod_j p(x^{(j)}=x_i^{(j)}\vert y_i)
 
