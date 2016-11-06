@@ -225,12 +225,14 @@ $$
 > $$
 >
 > 可以看作一个相位偏移(phase shift)
+>
 > $$
 > \begin{bmatrix}
 > cos\frac{\gamma}{2} & -sin\frac{\gamma}{2}\\
 > sin\frac{\gamma}{2} & cos\frac{\gamma}{2}\\
 > \end{bmatrix}
 > $$
+>
 > 是二维平面上的一个旋转。(Bloch Sphere上的几何意义不明确(?))
 
 进一步的，对任意数量的量子比特进行的任意计算，都可以由属于一个有限集合的量子门生成。这样的集合称为量子计算的一个universal set。
@@ -340,25 +342,35 @@ $$
 > 记我们要克隆的量子态为$\vert\psi\rangle$，另一个同时输入的需要将其转变为$\vert\psi\rangle$的态为$\vert s\rangle$(相当于克隆的输出对象)，记我们的克隆机器为unitary matrix $U$。
 >
 > 机器的输入为：
+>
 > $$
 > \vert\psi\rangle\otimes\vert s\rangle
 > $$
+>
 > 克隆的过程可以表述如下：
+>
 > $$
 > \vert\psi\rangle\otimes\vert s\rangle\xrightarrow{U}U(\vert\psi\rangle\otimes\vert s\rangle)=\vert\psi\rangle\otimes\vert \psi\rangle
 > $$
+>
 > 再假设我们可以用$U$克隆另一个量子态$\vert\varphi\rangle$，我们可以得到：
+>
 > $$
 > U(\vert\psi\rangle\otimes\vert s\rangle)=\vert\psi\rangle\otimes\vert \psi\rangle \\
 > U(\vert\varphi\rangle\otimes\vert s\rangle)=\vert\varphi\rangle\otimes\vert\varphi\rangle
 > $$
+>
 > 取上面两式的内积可以得到：
+>
 > $$
 > \langle\psi\vert\varphi\rangle=(\langle\psi\vert\varphi\rangle)^2
 > $$
+>
 > 解得：
+>
 > $$
 > \langle\psi\vert\varphi\rangle=0\ or\ 1
 > $$
+>
 > 即$\vert \psi\rangle=\vert \varphi\rangle$或者$\vert \psi\rangle$与$\vert \varphi\rangle$正交，亦即$U$最多只能克隆特定的一个量子态或者其正交。再加上我们事先不知道输入的态$\vert \psi\rangle$，故可得到结论：能克隆任意量子态的unitary matrix $U$是不存在的。
 
