@@ -374,3 +374,179 @@ $$
 >
 > 即$\vert \psi\rangle=\vert \varphi\rangle$或者$\vert \psi\rangle$与$\vert \varphi\rangle$正交，亦即$U$最多只能克隆特定的一个量子态或者其正交。再加上我们事先不知道输入的态$\vert \psi\rangle$，故可得到结论：能克隆任意量子态的unitary matrix $U$是不存在的。
 
+
+## Bell states
+
+指以下线路生成则状态$\vert\beta_{xy}\rangle$(纠缠态)：
+
+$$
+
+\vert H(x)\rangle\vert y\rangle\xrightarrow{CNOT}\vert\beta_{xy}\rangle \\
+\vert\beta_{xy}\rangle=\frac{\vert 0,y\rangle+(-1)^x\vert 1,\overline{y}\rangle}{\sqrt{2}}
+
+$$
+
+
+## 量子传输 quantum teleportation
+
+有一个待传输的qubit$\vert \psi\rangle$和一个Bell state如$\vert \beta_{00}\rangle$构成的系统$\vert \psi_0\rangle=\vert \psi\rangle\vert \beta_{00}\rangle$，可以通过量子电路将$\vert \psi\rangle$转移到Bell state的一个qubit上得到$\vert x\rangle\vert y,\psi\rangle$。
+
+# 量子算法
+
+## 量子线路模拟经典线路
+
+### Toffoli gate
+
+是一个可逆的经典门
+
+$$
+
+(a,b,c)\xrightarrow{T}(a,b,c\oplus ab)
+
+$$
+
+可以用它来模拟NAND和FANOUT(复制一个信号到两路)从而构成所有经典电路
+
+$$
+
+NAND:(a,b,1)\xrightarrow{T}(a,b,\neg(ab))\\
+FANOUT:(1,a,0)\xrightarrow{T}(1,a,a)\\
+
+$$
+
+由于Toffoli gate可逆，因此存在一个unitary matrix U恰好实现了Toffoli gate，即存在这样的量子门。
+
+由此，量子电路应该可以模拟经典的逻辑电路(但是好像没有寄存器，怎么实现迭代和递归(?))
+
+## 量子并行
+
+二元函数$f(x):\{0,1\}\to\{0,1\}$的实现，其中x称为data register，y称为target register
+
+$$
+
+U_f:\vert x,y\rangle\to\vert x,y\oplus f(x)\rangle
+
+$$
+
+在后面的章节中会证明，$U_f$是可以有效得出的。考虑如下过程
+
+$$
+
+\frac{\vert 0\rangle+\vert 1\rangle}{\sqrt{2}}\vert 0\rangle\xrightarrow{U_f}\frac{\vert 0,f(0)\rangle+\vert 1,f(1)\rangle}{\sqrt{2}}
+
+$$
+
+这一过程同时计算了$f$在不同输入上的输出。然而当我们对结果的状态进行测量时，我们只能得到一个输出。
+
+### Walsh-Hadamard transform
+
+即对多个输入的qubit进行$H$操作后，作为n元函数的输入。通过这一变换，我们可以将上述一元函数的情况扩展到任意元函数。以$n=2$为例：
+
+$$
+
+(\frac{\vert 0\rangle+\vert 1\rangle}{\sqrt{2}})(\frac{\vert 0\rangle+\vert 1\rangle}{\sqrt{2}})=(\frac{\vert 00\rangle+\vert 01\rangle+\vert 10\rangle+\vert 11\rangle}{2})
+
+$$
+
+我们用$H^{\otimes 2}$表示以上操作。更一般的，Hadamard变换作用于n个$\vert 0\rangle$的结果为
+
+$$
+
+\frac{1}{\sqrt{2^n}}\sum_x \vert x\rangle
+
+$$
+
+其中$\sum$包括了x的所有取值($2^n$个)，这一操作记为$H^{\otimes n}$。这样，上述的函数操作可以扩展到对n个qubits输入的形式。对n+1个状态为$\vert 0\rangle^{\otimes n}\vert 0\rangle$的qubit，对前n个进行Hadamard变换并应用$U_f$后，产生的state为
+
+$$
+
+\frac{1}{\sqrt{2^n}}\sum_x \vert x\rangle\vert f(x)\rangle
+
+$$
+
+同样，当我们对结果进行测量时，也只能得到一个输出。这样的输出在经典计算机上也能有效地得到，因此对量子并行这一现象的利用还需要进一步的方法。
+
+## Deutsch's algorithm
+
+对给定的函数$f$考虑如下过程：
+
+$$
+
+\left.\begin{aligned}
+\vert 0\rangle\xrightarrow{H}\\
+\vert 1\rangle\xrightarrow{H}\\
+\end{aligned}\right\}
+\vert \psi_1\rangle
+\xrightarrow{U_f}
+\vert \psi_2\rangle
+\left\{\begin{aligned}
+\xrightarrow{H}\\
+\xrightarrow{\ }\\
+\end{aligned}\right\}
+\vert \psi_3\rangle
+
+$$
+
+即：
+
+$$
+
+\vert \psi_1\rangle=(H\vert 0\rangle)(H\vert 1\rangle)\\
+\vert \psi_2\rangle=U_f\vert \psi_1\rangle=\vert \psi_{20}\rangle\vert \psi_{21}\rangle\\
+\vert \psi_3\rangle=(H\vert \psi_{20}\rangle)\vert \psi_{21}\rangle
+
+$$
+
+
+
+
+
+第一步：
+
+$$
+
+\vert \psi_1\rangle=(\frac{\vert 0\rangle+\vert 1\rangle}{\sqrt{2}})(\frac{\vert 0\rangle-\vert 1\rangle}{\sqrt{2}})
+
+$$
+
+第二步，枚举$\vert \psi_2\rangle$：
+
+| f(1)\f(0) | 0          | 1           |
+| --------- | ---------- | ----------- |
+| 0         | (0+1)(0-1) | -(0-1)(0-1) |
+| 1         | (0-1)(0-1) | -(0+1)(0-1) |
+
+可以总结得到
+
+$$
+
+\vert \psi_2\rangle=
+\left\{\begin{aligned}
+\pm (\frac{\vert 0\rangle+\vert 1\rangle}{\sqrt{2}})(\frac{\vert 0\rangle-\vert 1\rangle}{\sqrt{2}})&,f(0)=f(1)\\
+\pm (\frac{\vert 0\rangle-\vert 1\rangle}{\sqrt{2}})(\frac{\vert 0\rangle-\vert 1\rangle}{\sqrt{2}})&,f(0)\neq f(1)\\
+\end{aligned}\right.
+
+$$
+
+第三步，作用H门于第一个qubit得到：
+
+$$
+
+\vert \psi_3\rangle=
+\left\{\begin{aligned}
+\pm \vert 0\rangle(\frac{\vert 0\rangle-\vert 1\rangle}{\sqrt{2}})&,f(0)=f(1)\\
+\pm \vert 1\rangle(\frac{\vert 0\rangle-\vert 1\rangle}{\sqrt{2}})&,f(0)\neq f(1)\\
+\end{aligned}\right.
+
+$$
+
+即
+
+$$
+
+\vert \psi_3\rangle=\pm \vert f(0)\oplus f(1)\rangle(\frac{\vert 0\rangle-\vert 1\rangle}{\sqrt{2}})
+
+$$
+
+在这里，我们只通过一次$U_f$的计算就得到了关于$f$的global的性质$f(0)\oplus f(1)$，看起来这里我们得到了一个比经典计算机更好的结果。
+
