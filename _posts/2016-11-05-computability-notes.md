@@ -519,6 +519,6 @@ $a'=K^A$
 对惹你a 有b,c, b<a c<a and a=b并c b\vert c
 
 # lec10 递归定理
-对任意total函数f，存在n使得$\phi_f(n)=\phi_n$
+对任意total函数f，存在n使得$\phi_{f(n)}=\phi_n$
 
 
