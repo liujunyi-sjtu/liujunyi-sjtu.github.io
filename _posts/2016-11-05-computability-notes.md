@@ -3,6 +3,13 @@ layout: post
 date:   2016-11-05 21:00:00 +0800
 ---
 
+交大CS课程 可计算理论 的复习笔记。由于是复习时所做，笔记较为粗糙，待有时间再维护。
+
+参考材料：
+
+1. Yuxi Fu所作课程讲义
+2. Cutland, Nigel. Computability: An introduction to recursive function theory. Cambridge university press, 1980
+
 # lec00 introduction
 几个目前不可能的问题
 - 一个程序是否有循环
