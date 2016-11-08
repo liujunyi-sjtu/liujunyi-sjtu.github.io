@@ -423,6 +423,7 @@ $$
 ## 量子并行
 
 考虑关于二元函数$f(x):\{0,1\}\to\{0,1\}$的实现，
+
 $$
 
 U_f:\vert x,y\rangle\to\vert x,y\oplus f(x)\rangle
