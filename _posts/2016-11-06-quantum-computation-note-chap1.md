@@ -2,6 +2,8 @@
 layout: post
 ---
 
+Michael A. Nielsen, Isaac L. Chuang-Quantum Computation and Quantum Information_ 10th Anniversary Edition-Cambridge University Press (2011)的读书笔记
+
 # 导论
 
 # 历史
@@ -550,3 +552,118 @@ $$
 
 在这里，我们只通过一次$U_f$的计算就得到了关于$f$的global的性质$f(0)\oplus f(1)$，看起来这里我们得到了一个比经典计算机更好的结果。
 
+## Deutsch-Jozsa algorithm
+
+对Deutsch问题在n个qubit输入上的扩展。
+
+假设$f:\{0,1\}^n\to\{0,1\}$，并且$f$(x)的取值只可能是(1) constant或者(2)0和1各一半(balanced)。假设我们有$U_f$可以计算$\vert x,y\rangle\to\vert x,y\oplus f(x)\rangle$，那么我们可以用下列算法只调用一次对$f$的计算$U_f$确定$f$是上述情况中的哪一种。
+
+$$
+
+\left.\begin{aligned}
+\vert 0\rangle^{\otimes n}&\xrightarrow{H^{\otimes n}}\\
+\vert 1\rangle&\xrightarrow{H}\\
+\end{aligned}\right\}
+\vert \psi_1\rangle
+\xrightarrow{U_f}
+\vert \psi_2\rangle
+\left\{\begin{aligned}
+\xrightarrow{H^{\otimes n}}\\
+\xrightarrow{\ }\\
+\end{aligned}\right\}
+\vert \psi_3\rangle
+
+$$
+
+计算过程如下：
+
+$$
+
+\vert \psi_1\rangle=\sum_x\frac{\vert x\rangle}{\sqrt{2^n}}[\frac{\vert 0\rangle-\vert 1\rangle}{\sqrt{2}}]
+
+$$
+
+又有$\vert x\rangle[\frac{\vert 0\rangle-\vert 1\rangle}{\sqrt{2}}]\xrightarrow{U_f}(-1)^{f(x)}\vert x\rangle[\frac{\vert 0\rangle-\vert 1\rangle}{\sqrt{2}}]$，得到：
+
+$$
+
+\vert \psi_2\rangle=\sum_x\frac{(-1)^{f(x)}\vert x\rangle}{\sqrt{2^n}}[\frac{\vert 0\rangle-\vert 1\rangle}{\sqrt{2}}]
+
+$$
+
+我们可以这样表示Hadamard操作：$H\vert x\rangle=\sum_z(-1)^{xz}\vert z\rangle/\sqrt{2}$，由此
+
+$$
+
+\vert \psi_3\rangle=\sum_z\sum_x\frac{(-1)^{x\cdot z+f(x)}\vert z\rangle}{\sqrt{2^n}}[\frac{\vert 0\rangle-\vert 1\rangle}{\sqrt{2}}]
+
+$$
+
+注意到state $\vert 0\rangle^{\otimes n}$的系数是$\sum_x(-1)^{f(x)}/2^n$，当$f(x)$是常数时，得到$\vert 0\rangle^{\otimes n}$的系数是$1$或者$-1$，由normalization的条件，我们可以得知其他项的系数都是$0$，亦即我们对前$n$个qubits只能测到$\vert 0\rangle^{\otimes n}$。而当$f(x)$是balanced时，$\vert 0\rangle^{\otimes n}$的系数则正好是$0$，亦即前$n$个qubits不可能测得$\vert 0\rangle^{\otimes n}$，或者说至少有一位是$1$。
+
+由此，我们对$\vert \psi_3\rangle$的测量可以把$f$的两种情况分开来，原问题通过对$f$的一次计算就可以得到解答。
+
+如果使用经典计算机运行确定性算法，此问题最坏情况下需要对$f$进行$2^{n-1}+1$次（当然此处的计算和$U_f$有很大的不同，直接比较有些不妥）。但是使用经典计算机运行概率性算法，此问题也能在很快的时间内得到不错的解答（参考Miller-Rabin素数测试）。
+
+由此，我们得到了第一个在量子计算机上表现优于经典计算机的问题。
+
+# 量子算法总结
+
+目前优于经典计算机的量子算法主要有三类
+
+- 基于量子版本的傅里叶变换：D-J算法和Shor算法
+- 基于量子搜索算法
+- 量子模拟：模拟量子系统
+
+## 基于傅里叶变换
+
+离散傅里叶变换(DFT)定义：$x_0,...,x_{N-1}\to y_0,...,y_{N-1}$
+
+$$
+
+y_k=\frac{1}{\sqrt{N}}\sum^{N-1}_{j=0}e^{2\pi ijk/N}x_j\\
+x_j=\frac{1}{\sqrt{N}}\sum^{N-1}_{k=0}e^{-2\pi ijk/N}y_k
+
+$$
+
+在量子计算中，$n$个$qubits$的状态空间有$2^n$个互相正交的基(量子力学中不同的本征态总是正交的)，我们使用以下形式的DFT：
+
+$$
+
+\vert j\rangle \to \frac{1}{\sqrt{2^n}}\sum^{2^n-1}_{k=0}e^{-2\pi ijk/2^n}\vert k\rangle
+
+$$
+
+相当于对$2^n$维向量的变换。此时我们有如下性质得到保持：
+
+$$
+
+\sum^{2^n-1}_{j=0}x_j\vert j\rangle\to \frac{1}{\sqrt{2^n}}\sum^{2^n-1}_{k=0}[\sum^{2^n-1}_{j=0}e^{-2\pi ijk/2^n}x_j]\vert k\rangle=\sum^{2^n-1}_{k=0}y_k\vert k\rangle
+
+$$
+
+在经典计算机中，我们进行$N=2^n$维的DFT，需要$Nlog(N)=n2^n$次运算(FFT)，而量子计算的傅里叶变换只需要$\log^2(N)=n^2$次运算，这比起经典计算机得到了指数级的加速。
+
+然而需要注意的是，量子计算中傅里叶变换的结果仍是叠加态，这意味着我们并不能得到每一项的系数$y_k$，而只能将它们作为隐藏信息使用。这是这一方法难以利用的原因。
+
+这一类算法可以解决这样的问题：
+
+给定$f:G\to X$，其中$G$是一个有限生成群，X是一个有限集合，对$G$的子集$K$，$f$在K的每一个陪集上取常数，并且不同的陪集对应的常数不同。假设存在$U_f$使得$U_f\vert g\rangle\vert h\rangle=\vert g\rangle\vert h\oplus f(g)\rangle$，其中$g\in G,h\in X$，$\oplus$是$X$上恰当选定的二元运算，在此前提下找一个$K$的生成集。
+
+Deutsch-Jozsa算法和Shor算法都可以看作以上问题的特例。
+
+## 量子搜索算法
+
+首先由Grover发现。对于一个大小为N的搜索空间，在对其结构没有先验知识的情况下，在其中搜索一个有满足属性的元素，经典的计算机需要大约N次的操作。而量子搜索算法则能在$\sqrt{N}$次操作中得到结果。
+
+## 量子模拟
+
+对于量子系统的模拟，量子计算机可以用$kn$个qubits来模拟经典计算机需要$c^n$个bits来模拟的量子系统。但相对的，我们可能无法直接从量子计算机模拟的结果中得到我们想要的信息(在叠加态的隐藏信息中)。这需要我们恰当地设计。
+
+## 量子计算的能力
+
+一些现状：
+
+- 目前认为质因数分解可能不属于P，但也不属于NPC
+- 基于搜索的量子算法不能有效地解决所有NP问题，但不排除NP问题的某些深层结构可以让量子计算机快速解决它们。
+- BQP问题是量子计算中被认为可以有效解决的一类问题(类似经典计算中的P问题)。目前并不明确BQP和P，NP，PSPACE的关系，但已知$P\subseteq BQP\subseteq PSPACE$(等号能否取到还未知)。
