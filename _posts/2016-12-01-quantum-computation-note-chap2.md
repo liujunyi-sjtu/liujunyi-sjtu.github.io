@@ -38,6 +38,8 @@ $$
 
 ## 内积
 
+定义：$(\cdot,\cdot):V\times V\to R$
+
 1. 线性性：
 
    $(\vert v\rangle,\sum_i \lambda_i\vert w_i\rangle)$=$\sum_i \lambda_i(\vert v\rangle,\vert w_i\rangle)$
@@ -46,9 +48,9 @@ $$
 
 3. $(\vert v\rangle,\vert v\rangle)\geq 0$当且仅当$\vert v\rangle=0$的时候成立
 
-$\langle v\vert w\rangle$表示二者的内积。
+简写：$\langle v\vert w\rangle\equiv (\vert v\rangle, \vert w\rangle)$
 
-定义了内积的线性空间成为内积空间(Hilbert space)。
+定义了内积的线性空间称为内积空间(也称为Hilbert space)。
 
 ## 线性变换
 
