@@ -208,15 +208,7 @@ Z=\vert 0\rangle\langle 0\vert - \vert 1\rangle\langle 1\vert=
 
 $$
 
-假设3的测量到投影测量的对应可以这样看出来，对任意矩阵$M_m$，由矩阵的polar decomposition总有
-
-$$
-
-M_m=U_m\sqrt{M_m^\dagger M_m}=U_m\sum_j m_jP_j
-
-$$
-
-物理中我们把投影测量称为可观测量的测量(其对应矩阵的本征值是实数)，容易得出$m$的均值
+物理中我们把投影测量称为“可观测量(liang4)”的测量(其对应矩阵的本征值是实数)，容易得出$m$的均值
 
 $$
 
@@ -287,6 +279,45 @@ $$
 \frac{\vert 00\rangle+\vert 11\rangle}{\sqrt{2}}
 
 $$
+
+## 关于projective measurement和generalized measurement的对应
+
+考虑一个状态空间$Q$上的测量$\{M_m\}$，我们对这个测量引入一个辅助的状态空间$P$，这个空间有$\vert \{M_m\}\vert$个元素
+
+假设$\vert 0\rangle$是空间$P$中一个固定的量子态，对任意$\vert \psi\rangle$定义一个变换$U$作用在状态$\vert \psi\rangle\vert 0\rangle$上
+
+$$
+
+U\vert\psi\rangle\vert 0\rangle=\sum_m (M_m\vert \psi\rangle)\vert m\rangle
+
+$$
+
+其中$\vert m\rangle$是$P$上的一个标准正交基，这样由$\{M_m\}$的完备性我们有
+
+$$
+
+\langle \varphi\vert\langle 0\vert U^\dagger U\vert\psi\rangle\vert 0\rangle=\langle\varphi\vert\psi\rangle
+
+$$
+
+通过这个性质，我们可以把$U$扩充成$Q\otimes P$上的一个unitary变换。对于$Q\otimes P$上的projective measurement
+
+$$
+
+P_m\equiv I_Q\otimes\vert m\rangle\langle m\vert
+
+$$
+
+我们有
+
+$$
+
+\frac{P_mU\vert \psi\rangle\vert 0\rangle}{\sqrt{\langle\psi\vert U^\dagger P_m U\vert\psi\rangle}}=
+\frac{(M_m\vert \psi\rangle)\vert m\rangle}{\langle\psi\vert M_m\vert \psi\rangle}
+
+$$
+
+即$Q\otimes P$上对状态$\vert \psi\rangle\vert 0\rangle$的unitary变换$U$加上测量$P_m$正好等价于对$\vert\psi\rangle\vert m\rangle$进行测量$M_m\otimes I_P$，这意味着我们在generalized measurement中对系统$Q$定义的$M_m$测量的结果总是能得到的。
 
 以上就是我们对量子力学第一种数学形式的介绍的全部了。在这种形式中，我们认为任一封闭体系中，物理实在(如一个或多个粒子)在某一时刻的状态(如动量、“位置”、能级、自旋等等)总是可以用唯一的态矢量表示的，并且他们的状态总是随着时间按unitary(没有与经典体系发生作用时)或者测量的方式变化。
 
