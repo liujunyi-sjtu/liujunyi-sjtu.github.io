@@ -879,7 +879,7 @@ $$
 
 到这里，我们找到一个不可证明的“真”陈述。然而这里还有一点点不严格的地方，那就是我们的证明还依赖着“真”的概念。我们将在下面尝试去掉“真”这一概念。
 
-## 哥德尔的不完备定理
+## 哥德尔的不完备定理（这部分有点问题，维护中！）
 
 先介绍两个概念。
 
@@ -924,55 +924,6 @@ $$
 1. $c_M(x_1,...,x_n)=1\Rightarrow \sigma(x_1,...,x_n)\text{ is provable}$
 2. $c_M(x_1,...,x_n)\neq 1\Rightarrow \neg\sigma(x_1,...,x_n)\text{ is provable}$
 
-(这个证明有点迷，建议跳过)
-
-这一定理的证明就是我们之前提到的，对$c_M$的构造进行归纳。我们先考虑以下的问题：
-
-$c_M(x_1,...,x_n)=x\Rightarrow \sigma(x,x_1,...,x_n)\text{ is provable}$
-
-$c_M(x_1,...,x_n)\neq x\Rightarrow \neg\sigma(x,x_1,...,x_n)\text{ is provable}$
-
-在这个情况下构造$\sigma$。注意，$S(x)$是$x$的后继数。
-
-1. $c_M\equiv Z(x_1)$, 
-
-   $\sigma\equiv x=0$
-
-2. $c_M\equiv S(x_1)$, 
-
-   $\sigma\equiv x=S(x_1)$
-
-3. $c_M\equiv U_k^n(x_1,...,x_n)$, 
-
-   $\sigma\equiv x=x_k$
-
-4. $c_M\equiv f(g_1(x_1,...,x_m),...,g_n(x_1,...,x_m))$, 
-
-   $\sigma\equiv \sigma_1(y_1,x_1,...,x_m)\land...\land \sigma_n(y_n,x_1,...,x_m)\land \sigma_f(x,y_1,...,y_n)$
-
-5. $c_M(x_1,...,x_n,0)= f(x_1,...,x_n)$
-
-   $c_M(x_1,...,x_n,y+1)=g(x_1,...,x_n,y,c_M(x_1,...,x_n,y))$, 
-   
-$$
-
-   \begin{aligned}
-   \sigma(x,x1,...,x_n,y)\equiv 
-   &\forall A z_0z_1z_2z_3\\
-   &(
-   (\sigma_f(z_0,x_1,...,x_n)\to A(z_0,x_1,...,x_n,0))\\
-   &\land (
-   (\sigma_g(z_1,x_1,...,x_n,z_2,z_3)\land A(z_3,x_1,...,x_n,z_2))\to A(z_1,x_1,...,x_n,S(z_2))
-   )
-   )\\
-   &\to A(x,x_1,...,x_n,y)
-   \end{aligned}
-   
-$$
-
-   (我写到一半想，真的有人会看么?=.=要是写错了请联系我...)	
-
-相信大家能看出来，以上的过程能写成递归函数...这样，我们取$x=1$即得到证明。
 
 ### 哥德尔的不完备定理
 
@@ -1006,17 +957,17 @@ $$
 
 1. 如果$e\in K$，那么存在$m$使得$H(e,e,m)=1$，也就能证明$\exists y\ \sigma(e,y)$。这就是说
    
-$$
+   $$
 
    e\in K\Rightarrow \exists y\ \sigma(e,y)\text{ is provable}
    
-$$
+   $$
 
-   那么我们有$K\subseteq Pr^*$。考虑一致性，我们有$Pr^*\cap Ref^*=\emptyset$，所以$Ref^*\subseteq \overline{K}$。
+   那么我们有$K\subseteq Pr^* $。考虑一致性，我们有$Pr^*\cap Ref^*=\emptyset$，所以$Ref^*\subseteq \overline{K}$。
 
    记$Ref^*=W_m$，根据$\overline{K}$的productive性质，我们有$m\in \overline{K}\backslash W_m$。
 
-   下面我们考察陈述$\tau\equiv\neg\exists y\ \sigma(m,y)$。如果$\tau$是可证明的，我们就有$m\in W_m$，与前面的结论矛盾了。所以$\tau$是不是可证明的。
+   下面我们考察陈述$\tau\equiv\neg\exists y\ \sigma(m,y)$。如果$\tau$是可证明的，我们就有$m\in W_m$，与前面的结论矛盾了。所以$\tau$是不可证明的。
 
 2. 如果皮亚诺公理系统是$\omega$-consistent的，考虑$\neg\tau=\exists y\ \sigma(m,y)$。
 
