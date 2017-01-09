@@ -74,7 +74,6 @@ URM模型的四种操作是
 对于任意一个关于自然数的命题（谓词）$M$，如果以下函数是可计算的(称为$M$的特征函数)，我们称这个命题为可判定命题
 
 $$
-
 c_M(x)=
 \begin{aligned}
 \left\{
@@ -84,7 +83,6 @@ c_M(x)=
  \end{aligned}
  \right.
 \end{aligned}
-
 $$
 
 是否所有自然数上的函数都有对应的URM程序呢？
@@ -140,9 +138,8 @@ $$
 4. 函数的复合(composition)：如果$f$和$g_k,1\leq k\leq n$都是递归函数，那么$h(x)=f(g_1(x),...,g_n(x))$也是递归函数。
 
 5. 函数的原始递归(primitive recursion)：如果$g$和$f$都是递归函数，那么定义$h$
-   
-$$
 
+$$
    \begin{aligned}
    h(x,0)&=f(x)\\
    h(x,y+1)&=g(x, y, h(x,y))
@@ -153,9 +150,8 @@ $$
    也是递归函数
 
 6. 函数的最小化操作(minimisation)$\mu$：如果$f$是一个递归函数，那么
-   
-$$
 
+$$
    \begin{aligned}
    \mu y(f(x,y)=0)=
    \left\{
@@ -175,7 +171,7 @@ $$
 
    用类似c语言的风格描述，最小化操作相当于一个如下的无界搜索：
 
-   ```code
+```code
    int mu(function f, parameter x)
    {
    	int y = 0;
@@ -184,7 +180,7 @@ $$
    	}
    	return y;
    }
-   ```
+```
 
 最小化操作十分重要，如果在构造某个递归函数的过程中可以不用最小化操作，我们称所得到的函数为原始递归函数(primitive recursive function)。对一个不是原始递归函数的递归函数，其计算时间复杂度可以非常非常高（甚至比任何指数级复杂度还高），著名的Ackermann函数就是一个不是原始递归的递归函数。
 
@@ -197,9 +193,8 @@ $$
 1. 自然数上的加
 
 2. 自然数上变形的减
-   
-$$
 
+$$
    x\dot{-}y=
    \left\{
    \begin{aligned}
@@ -218,9 +213,8 @@ $$
 5. 自然数上的整除 $x/y=\lfloor \frac{x}{y} \rfloor$
 
 6. 整除 
-   
-$$
 
+$$
    y \vert x=
    \left\{
    \begin{aligned}
@@ -238,9 +232,8 @@ $$
 8. 大于，小于，等于的特征函数
 
 9. 如果$f_1,f_2,g_1,g_2$都是递归函数，并且对给定的$x$，有$g_1(x),g_2(x)$有且只有一个为0，那么
-   
-$$
 
+$$
    h(x)=
    \left\{
    \begin{aligned}
@@ -256,17 +249,14 @@ $$
 10. 如果$f,g$是递归函数那么以下函数是递归函数
 
 $$
-
    \sum_{z\leq g(k)} f(x)\\
    \prod_{z\leq g(k)} f(x)
-
 $$
 
 
 11. 如果$f$是递归函数，那么
 
 $$
-
    \begin{aligned}
    \mu z<y(f(x,z)=0)=
    \left\{
@@ -277,7 +267,6 @@ $$
     \end{aligned}
     \right.
    \end{aligned}
-
 $$
 
    注意，这个不同于上文提到最小化操作，这是一个有界搜索，如果在界内没有找到答案，则返回上界。这个操作相当于下列c代码。这个操作不需要最小化操作也能构造，所以如果$f$是原始递归函数，那么对其的有界搜索也是原始递归函数。
@@ -310,7 +299,6 @@ $$
 
 
 $$
-
 prime(x)=
 \left\{
  \begin{aligned}
@@ -318,7 +306,6 @@ prime(x)=
  0&\quad&\text{otherwise}
  \end{aligned}
  \right.
-
 $$
 
 
@@ -326,12 +313,10 @@ $$
 
 
 $$
-
 \begin{aligned}
 p(0) & = 2\\
 p(y+1) & = \mu z<(p(y)!+2) (1-prime(z)\cdot(z>p(y)))
 \end{aligned}
-
 $$
 
 
@@ -339,9 +324,7 @@ $$
 
 
 $$
-
 (x)_y =\mu z<x(p(y)^{z+1}\vert x)
-
 $$
 
 
@@ -350,20 +333,16 @@ $$
 先定义
 
 $$
-
 \begin{aligned}
 g(0)&=2^03^1\\
 g(y+1)&=2^{(g(y))_1}3^{(g(y))_0+(g(y))_1}
 \end{aligned}
-
 $$
 
 然后我们有
 
 $$
-
 fib(x)=(g(x))_0
-
 $$
 
 
@@ -383,20 +362,16 @@ $$
 考虑函数
 
 $$
-
 \pi(m,n)=2^m(2n+1)-1
-
 $$
 
 和其反函数
 
 $$
-
 \begin{aligned}
 \pi_1(x) &= (x+1)_0\\
 \pi_2(x)&=((x+1)/2^{\pi_1(x)}-1)/2
 \end{aligned}
-
 $$
 
 不难验证，上述递归函数函数$\pi$完成了两个自然数到一个自然数的一一对应的编码，而$\pi_1,\pi_2$则完成了相应的解码。
@@ -404,9 +379,7 @@ $$
 更进一步的，我们也可以用类似的方式编码三个自然数，定义
 
 $$
-
 \zeta(m,n,q)=\pi(\pi(m,n),q)
-
 $$
 
 容易看出，我们同样可以写出它的解码函数。
@@ -423,9 +396,7 @@ $$
 接下来，我们只要能将任意长度的自然数序列一一对应地编码成一个自然数，就能完成将任意长度的URM程序编码成一个自然数的任务。下面给出这一编码函数$\tau:\cup_k \mathbb{N}^{k}\to \mathbb{N}$。对任意的自然数序列$a_1,...,a_n$
 
 $$
-
 \tau(a_1,...,a_n)=2^{a_1}+2^{a_1+a_2+1}+2^{a_1+a_2+a_3+2}+...+2^{a_1+a_2+...+a_n+n-1}-1
-
 $$
 
 注意，在这里n其实也是$\tau$的参数，我们可以构造出一个递归函数来反求出n，这里不给出具体构造。
@@ -463,7 +434,6 @@ $$
 下面我们给出更具体的细节
 
 $$
-
 \begin{aligned}
 c_n(e,x,0)&=\text{the initial configuration of parameter x}\\
 c_n(e,x,t+1) &= 
@@ -486,7 +456,6 @@ j_n(e,x,t) & \quad & otherwise
 \right.
 
 \end{aligned}
-
 $$
 
 实际上，根据递归函数的定义，上面的$c_n,j_n$的定义应该合写成$\sigma_n$的定义，相信大家都能完成这一步。
@@ -501,9 +470,7 @@ $$
 终于可以写出我们的Universal程序了！
 
 $$
-
 U_n(e,x)=(\mu z(1-S_n(e,x,(z)_0,(z)_1))
-
 $$
 
 这里我们要注意两点。首先，$S_n$的构造中我们并没有用到无界搜索$\mu$，这意味着$S_n$是原始递归的。其次，$U_n$一共就只有一个$\mu$，这意味着任何一个递归函数，都可以仅用一个无界搜索就写出来！
@@ -531,7 +498,6 @@ s如果$f(x,y)$是一个递归函数，那么我们一定可以给出一个total
 在URM模型的部分我们提到，存在很多从自然数到自然数的函数，它们是(用递归函数)不可计算的。接下来我们首先尝试找到一个不可计算的函数。考虑以下函数
 
 $$
-
 f(x)=
 \left\{
 \begin{aligned}
@@ -539,7 +505,6 @@ f(x)=
 0&\quad&\text{if $\phi_x(x)$ is undefined}
 \end{aligned}
 \right.
-
 $$
 
 我们发现，对任何一个可计算函数$\phi_k$我们都有$f(k)\neq \phi_k(k)$，从而$f\neq \phi_k$。由于$\phi_k$列举出了所有的可计算函数，所以$f$必然不是一个可计算函数！考察$f$的构造过程，实际上我们使用了著名的对角线方法：
@@ -562,7 +527,6 @@ $$
 假设$x\in W_x$是可判定的，根据定义，我们知道它的特征函数
 
 $$
-
 c(x)=
 \left\{
 \begin{aligned}
@@ -570,13 +534,11 @@ c(x)=
 0&\quad&x\notin  W_x
 \end{aligned}
 \right.
-
 $$
 
 是可计算的。根据递归函数的定义，我们发现以下函数也是可计算的
 
 $$
-
 g(x)=
 \left\{
 \begin{aligned}
@@ -584,13 +546,11 @@ g(x)=
 \text{undefined}&\quad&c(x)=1
 \end{aligned}
 \right.
-
 $$
 
 换一个写法
 
 $$
-
 g(x)=
 \left\{
 \begin{aligned}
@@ -598,7 +558,6 @@ g(x)=
 \text{undefined}&\quad&x\in W_x
 \end{aligned}
 \right.
-
 $$
 
 可以得到这样的结论$x\in Dom(g)\iff x\notin W_x$
@@ -633,7 +592,6 @@ $$
 我们再引入一种可判定性——半可判定。定义如下：对谓词$M(x)$，如果以下函数是可计算的，则我们称$M(x)$是半可判定的：
 
 $$
-
 c_M(x)=
 \left\{
 \begin{aligned}
@@ -641,7 +599,6 @@ c_M(x)=
 \text{undefined}&\quad&\text{otherwise}
 \end{aligned}
 \right.
-
 $$
 
 不难看出，$x\in W_x$是半可判定的，这是因为我们总可以用Universal程序来模拟$\phi_x$，如果其停止了我们就返回1，否则就一直运行下去。
@@ -660,9 +617,8 @@ $$
 - 如果$M$对应的谓词$x\in M$是可判定的，则我们称$M$为递归集(recursive set)
 
   即存在可计算的$c$使得
-  
-$$
 
+$$
   c(x)=
   \left\{
   \begin{aligned}
@@ -673,14 +629,11 @@ $$
   
 $$
 
-  ​
-
 - 如果$M$对应的谓词$x\in M$是半可判定的，则我们称$M$为递归可枚举集(recursively enumerable set)，简写为r.e. set
 
   即存在可计算的$c$使得
-  
-$$
 
+$$
   c(x)=
   \left\{
   \begin{aligned}
@@ -706,9 +659,7 @@ $$
 我们称集合$A$是productive的，当且仅当存在total且可计算的函数$g$使得
 
 $$
-
 \forall W_x\subseteq A\Rightarrow g(x)\in A\backslash W_x
-
 $$
 
 $\backslash$表示集合的差。
@@ -792,10 +743,8 @@ $\overline{K}$的productive性质可以通过选择$g(x)\equiv x$得到。
 $H_n$是原始递归的，并且程序$e$会停机当且仅当$\exists z(H_n(e,x,z)=1)$。这样根据哥德尔的引理，我们能构造一个自然数上的陈述$\sigma_R$，使得$H_n(e,x,z)=1\iff \sigma_R(e,x,z)\in T$。那么我们有
 
 $$
-
 e\in K \iff \exists z\ \sigma_R(e,x,z)\in T\\
 e\notin K \iff \neg\exists z\ \sigma_R(e,x,z)\in T
-
 $$
 
 假设$H_n(e,x,z)=\phi_k(e,x,z),\sigma_R(e,x,z)=\theta_{f(k)}$，由于我们清楚对$\sigma_R$，应该不难看出我们可以写出可计算的$f'$使得$\neg\exists z\ \sigma_R(e,x,z)=\theta_{f'(f(k))}$，更进一步的，我们可以有效地把$\sigma_R$中的符号$e$和$x$替换成任何自然数$m$，这就是说存在可计算的$f''$使得$\neg\exists z\ \sigma_R(m,m,z)=\theta_{f''(f'(f(k)),m)}$。由于$f'',f',f$都是可计算的，他们的复合也是可计算的，也就是说，我们可以找到可计算函数$g$使得$\neg\exists z\ \sigma_R(m,m,z)=\theta_{g(m)}$。
@@ -803,35 +752,31 @@ $$
 记
 
 $$
-
 \mathbb{T}=\{x\vert \theta_x\in T\}
-
 $$
 
 那么我们有
 
 $$
-
 \begin{aligned}
 n\in\overline{K} & \iff n\notin K\\
 & \iff \theta_{g(n)}\in T\\
 & \iff g(n)\in\mathbb{T}
 \end{aligned}
-
 $$
 
 根据之前提到productive集合的性质，我们有$\mathbb{T}$是productive的，记其productive性质的函数为$g_T$。
 
 由此，我们证明了**所有“真”陈述组成的集合是productive的。**
 
+### 万能的证明机
+
 接下来，我们说明所有可证明的陈述组成的集合是recursively enumerable的。
 
 首先，我们需要这样一个前提：所有公理的下标组成的集合应当是recursive的。这就是说
 
 $$
-
 \mathbb{A}=\{x|\theta_x\text{ is an axiom}\}
-
 $$
 
 是recursive的。这是因为，给定一条陈述，我们必须要有有效的方式判断它是否是公理...
@@ -851,26 +796,22 @@ $$
 
 这个程序的具体构造，可以参见哥德尔文章[1]中的$Bw$和$B$函数。
 
-到这里，我们得到了一个可计算函数$LegalProve(x,y)$，其中$x$是一个陈述序列的编码，$y$是一个陈述，这一函数验证$x$是否对应一个合法的$y$的证明。
+到这里，我们得到了一个可计算函数$ProveFor(x,y)$，其中$x$是一个陈述序列的编码，$y$是一个陈述，这一函数验证$x$是否对应一个合法的$y$的证明。
 
-那么寻找$y$的证明的特征函数，就可以写成$Prove(y)=\mu x(LegalProve(x,y))$，亦即我们搜索所有的陈述序列，直到找到一个陈述序列，其恰好是$y$的证明。
+那么寻找$y$的证明的特征函数，就可以写成$Prove(y)=\mu x(ProveFor(x,y))$，亦即我们搜索所有的陈述序列，直到找到一个陈述序列，其恰好是$y$的证明。
 
 根据我们前面的构造过程，我们知道当$y$是可证明的时候，以上函数$Prove$会停机；当$y$是不可证明的时候，以上函数$Prove$不会停机。
 
 这样，所有可证明的陈述组成的下标集合恰好就是某个递归函数的定义域，根据前面的结论，所有可证明的陈述下标集合是一个recursively enumerable set
 
 $$
-
 Pr=\{x\vert x\text{ is provable}\}=W_{pr}
-
 $$
 
 如果公理系统是"对"的，我们应该有$Pr\subseteq \mathbb{T}$。这也就是说
 
 $$
-
 g_T(pr)\in \mathbb{T}\backslash Pr
-
 $$
 
 即存在一个“真”陈述，其不可证明。
@@ -879,26 +820,43 @@ $$
 
 到这里，我们找到一个不可证明的“真”陈述。然而这里还有一点点不严格的地方，那就是我们的证明还依赖着“真”的概念。我们将在下面尝试去掉“真”这一概念。
 
-## 哥德尔的不完备定理（这部分有点问题，维护中！）
+## 哥德尔的不完备定理
 
-先介绍两个概念。
+这里，除了哥德尔的原文，我还参考了[4],[5]和[6]。哥德尔原文的证明中似乎使用了高阶逻辑，我尝试改成了一阶谓词逻辑，如果出错了请联系我QAQ
+
+### 陈述的编码
+
+我们先定义陈述的语言，符号包括：
+
+- 括号：$(,)$
+- 逻辑符号：$\neg, \lor, \forall$
+- 自然数语言：$0,succ,=$
+- 有$k$个参数的谓词变量：$P_1^k,P_2^k,...$
+- 自然数变量：$x_1,x_2,...$
+
+一个陈述是下列之一
+
+- $P_x^k(x_{y_1},...,x_{y_k})$
+- $\neg(a)$
+- $a\lor b$
+- $\forall x_y(a)$
+
+其中$a,b$为陈述。不难看出，我们可以把合法的陈述一一编码到自然数上。具体的编码可以参看资料[1]。
+
+然后介绍两个概念。
 
 ### 一致性(consistent)
 
 我们说一个形式化系统是一致的，当这个形式化系统中不存在一个陈述$\tau$使得以下两个陈述都是可证明的：
 
 $$
-
 \tau,\neg\tau
-
 $$
 
 这就是说，这个系统中不能存在一个陈述，它和它的否定都是可证明的，或者说它即是对的又是错的。这是因为在我们的逻辑中，以下陈述对任意$a,b$都是永真的
 
 $$
-
 (a\land \neg a)\to b
-
 $$
 
 这也就是说，这样一个矛盾的陈述会导致所有的陈述都是对的，从而使得我们的公理系统失去了意义。
@@ -908,72 +866,153 @@ $$
 我们说一个形式化系统是$\omega$-consistent的，当这个形式系统中不存在一个陈述$\tau(y)$使得以下的所有陈述都是可证明的：
 
 $$
-
 \exists y\ \tau(y),\neg\tau(0),\neg\tau(1),\neg\tau(2),...
-
 $$
 
 这就是说，这个系统中不能存在这样一个性质，我们既能证明存在一个自然数满足这个性质，又能证明任意一个自然数都不满足这个性质。一个$\omega$-consistent的系统一定是consistent的，只要取$y$是不存在的自由变量就好了。
 
+用我们后面的语言说，$\omega$-consistent是指不存在$\tau$使得（可以看到后面再回来看）
+
+$$
+num(\exists y\ \tau(y))\in Pr\land \forall y\ (num(\tau(y))\in Pr)
+$$
+
+
 ### 哥德尔的引理
 
-先介绍哥德尔原文中的一个引理
+首先，我们默认大家相信这样一个前提：考虑函数$ProveFor(x,y)$，其在编码为$x$的陈述序列是编码为$y$的陈述的证明时取值$1$，其他时候取值$0$。意思就是陈述序列$x$证明了陈述$y$。这样的函数$ProveFor$是原始递归的。这一点我们在前面也提到过，具体的证明可以参见资料[1]中的$B$和$Bw$函数(原文中编号为45)
 
-对一个特征函数是原始递归的谓词$M(x_1,x_2,...,x_n)$，我们可以通过机械的过程构造一个自然数上含有$n$个变元的陈述$\sigma(x_1,x_2,...,x_n)$，使得对任意$a_1,...,a_n\in \mathbb{N}$，有$M(a_1,...,a_n)$为真当且仅当$\sigma(a_1,...,a_n)$是可证明的。用我们前面的语言来说，如果$c_M=\phi_n$，那么存在total可计算的$g$，对$\sigma=\theta_{g(n)}$，有
+然后，我们定义函数$Provable(x)$
 
-1. $c_M(x_1,...,x_n)=1\Rightarrow \sigma(x_1,...,x_n)\text{ is provable}$
-2. $c_M(x_1,...,x_n)\neq 1\Rightarrow \neg\sigma(x_1,...,x_n)\text{ is provable}$
+$$
+Provable(x)=
+\left\{
+\begin{aligned}
+1&\quad&\text{if $\mu y(ProveFor(y,x))$ halt}\\
+\text{undefined}&\quad&\text{otherwise}
+\end{aligned}
+\right.
+$$
 
+意思就是$Provable$只在编码是$x$的陈述可证明时才停机。也就是说$Provable$的定义域$Pr\equiv Dom(Provable)$正好包含了所有可以被证明的陈述的编码。这样，我们就能用一个自然数上的陈述$x\in Pr$作为语法来替代**可证明**这个有些难以处理语义。
+
+下面介绍哥德尔的一个引理。
+
+对一个特征函数是原始递归的谓词$M(x_1,x_2,...,x_n)$，我们可以通过机械的过程构造一个自然数上含有$n$个变元的陈述$\sigma(x_1,x_2,...,x_n)$，使得对任意$a_1,...,a_n\in \mathbb{N}$，有$\sigma(a_1,...,a_n)$是可证明的当$M(a_1,...,a_n)$为真，$\neg\sigma(a_1,...,a_n)$是可证明的当$M(a_1,...,a_n)$为假。
+
+我们尝试用更形式化的方法来说，
+
+对陈述$\tau$，定义$num(\tau)$是$\tau$的编码。
+
+
+哥德尔的引理是说，如果原始递归的$c_M=\phi_m$，那么存在total可计算的$g$使得$\sigma(x_1,...,x_n)=\theta_{g(m)}$。
+
+1. $c_M(a_1,...,a_n)=1\Rightarrow num(\sigma(a_1,...,a_n))\in Pr$
+2. $c_M(a_1,...,a_n)\neq 1\Rightarrow num(\neg\sigma(a_1,...,a_n))\in Pr$
+
+(这个证明建议跳过)
+
+这一定理的证明就是我们之前提到的，对$c_M$的构造进行归纳。我们先考虑以下的问题：
+
+$c_M(x_1,...,x_n)=x\Rightarrow \sigma(x,x_1,...,x_n)\text{ is provable}$
+
+$c_M(x_1,...,x_n)\neq x\Rightarrow \neg\sigma(x,x_1,...,x_n)\text{ is provable}$
+
+在这个情况下构造$\sigma$。注意，$S(x)$是$x$的后继数。
+
+1. $c_M\equiv Z(x_1)$, 
+
+   $\sigma\equiv x=0$
+
+2. $c_M\equiv S(x_1)$, 
+
+   $\sigma\equiv x=S(x_1)$
+
+3. $c_M\equiv U_k^n(x_1,...,x_n)$, 
+
+   $\sigma\equiv x=x_k$
+
+4. $c_M\equiv f(g_1(x_1,...,x_m),...,g_n(x_1,...,x_m))$, 
+
+   $\sigma\equiv \sigma_1(y_1,x_1,...,x_m)\land...\land \sigma_n(y_n,x_1,...,x_m)\land \sigma_f(x,y_1,...,y_n)$
+
+5. $c_M(x_1,...,x_n,0)= f(x_1,...,x_n)$
+
+   $c_M(x_1,...,x_n,y+1)=g(x_1,...,x_n,y,c_M(x_1,...,x_n,y))$, 
+
+$$
+\begin{aligned}
+   \sigma(x,x1,...,x_n,y)\equiv 
+   &\exists a(
+   \sigma_f((a)_0,x_1,...,x_n)\\
+   &\land \forall z\ (z< y\to \sigma_g((a)_{z+1},x_1,...,x_n,(a)_z)
+     )\\
+   &\land x=(a)_{y}
+   )
+   \end{aligned}
+$$
+
+   (真的有人会看么?=.=要是写错了请联系我...)	
+
+相信大家能看出来，以上的过程($\sigma$的编码)能写成递归函数...这样，我们取$x=1$即得到证明。
 
 ### 哥德尔的不完备定理
 
 在皮亚诺算数公理系统中，存在一个陈述$\tau$使得
 
-1. 如果皮亚诺算数公理系统是consistent的，那么$\tau$是不可证明的。
+1. 如果皮亚诺算数公理系统是$\omega$-consistent的，那么$\tau$是不可证明的。
 2. 如果皮亚诺算数公理系统是$\omega$-consistent的，那么$\neg\tau$是不可证明的。
 
 下面是证明：
 
-根据上一个引理，我们能找出$\sigma$使得
+我们先定义一个替换函数：
+
+对陈述的编码$n$，定义$Sb(n,a,b)$为：把$n$代表的陈述中，$a$编码的自由自然数变量替换为$b$编码的自然数(变量)，所得到的陈述。例如$Sb(num(P_1^1(x_1)\lor\forall n_1P_2^1(x_1)),num(x_1),num(0))=num(P_1^1(0)\lor\forall _1P_2^1(x_1))$，可以证明$Sb$是原始递归的，见参考资料[1]。下面为了便于阅读，我们会使用$x,y$之类的字母代替某个变量$x_1,x_2$
+
+下面有点容易晕，我们记自然数$n$的编码为$nat(n)$。注意，$num$是符号到自然数的映射，而$nat(n)$是自然数到自然数的函数。为了区分符号的自然数，我们下面把变量符号$y$写成$'y'$
+
+下面考虑函数$ProveFor(x,Sb(y,num('y'),nat(y))$，由于$ProveFor$和$Sb$是原始递归的，所以这个函数也是原始递归的。根据引理，存在一个陈述$\sigma$使得
 
 $$
-
-H(e,e,t)=1 \Rightarrow  \sigma(e,t)\text{ is provable}\\
-H(e,e,t)\neq 1 \Rightarrow  \neg\sigma(e,t)\text{ is provable}
-
+ProveFor(x,Sb(y,num('y'),nat(y))=1\Rightarrow num(\sigma(x,y))\in Pr\\
+ProveFor(x,Sb(y,num('y'),nat(y))\neq 1\Rightarrow num(\neg\sigma(x,y))\in Pr
 $$
 
+观察可知$\sigma(x,y)$的意思是：$x$是$Sb(y,num('y'),nat(y))$的证明。记$m\equiv num(\neg\exists x\ \sigma(x,y))$，即编号为$Sb(y,num(y),nat(y))$的陈述不存在证明。
 
-我们定义两个集合
+考虑$m'\equiv num(\neg\exists x\ \sigma(x,m))=num(\tau)$。
 
-$$
+1. 下面我们先证明如果系统是一致的，那么$m'\notin Pr$
 
-Pr^*=\{n\vert \exists y\ \sigma(n,y)\text{ is provable}\}\\
-Ref^*=\{n\vert \neg\exists y\ \sigma(n,y)\text{ is provable}\}
+   反证假设$m'\in Pr$，也就是说$\exists x\ ProveFor(x,m')=1$，那么由$\omega$-consistent的假设，一定存在$n$使得$ProveFor(n,m')=1$。
 
-$$
+   观察$m'$我们发现$m'=num(\neg\exists x\ \sigma(x,m))=Sb(m,num('y'),nat(m))$，也就是说$ProveFor(n,Sb(m,num('y'),nat(m)))=1$，那么我们有$num(\sigma(n,m))\in Dom(Provable)$，如果$Provable$确实表示了所有能证明的陈述，根据$\sigma(n,m)\Rightarrow \exists x\ \sigma(x,m)$这一逻辑，我们有$num(\exists x\ \sigma(x,m))\in Dom(Provable)$。
 
-这两个集合都是r.e.的，这是因为可证明性是半可判定的。
+   然而一致性要求我们，不能有$num(\tau)\in Dom(Provable)\land num(\neg\tau)\in Dom(Provable)$。也就是说这里的结果和一致性矛盾了，故$m'\notin Dom(Provable)$
 
-1. 如果$e\in K$，那么存在$m$使得$H(e,e,m)=1$，也就能证明$\exists y\ \sigma(e,y)$。这就是说
-   
-   $$
+2. 然后我们证明$m''=num(\neg\tau)=num(\exists x\ \sigma(x,m))\notin Pr$（其实这里还用了排中律）
 
-   e\in K\Rightarrow \exists y\ \sigma(e,y)\text{ is provable}
-   
-   $$
+   根据上一个结论，我们有$\forall x\  ProveFor(x,m')\neq1$，也就是说$\forall x\ num(\neg\sigma(x,m))\in Pr$。这样，根据$\omega$-consistent的假设，我们有$num(\exists x\ \sigma(x,m))\notin Pr$
 
-   那么我们有$K\subseteq Pr^* $。考虑一致性，我们有$Pr^*\cap Ref^*=\emptyset$，所以$Ref^*\subseteq \overline{K}$。
-
-   记$Ref^*=W_m$，根据$\overline{K}$的productive性质，我们有$m\in \overline{K}\backslash W_m$。
-
-   下面我们考察陈述$\tau\equiv\neg\exists y\ \sigma(m,y)$。如果$\tau$是可证明的，我们就有$m\in W_m$，与前面的结论矛盾了。所以$\tau$是不可证明的。
-
-2. 如果皮亚诺公理系统是$\omega$-consistent的，考虑$\neg\tau=\exists y\ \sigma(m,y)$。
-
-   由于$m\notin K$，我们知道对任意$t$都有$H(m,m,t)\neq 1$，所以$\neg\sigma(m,t)$都是可证明的，这样就有$\neg\tau$是不可证明的。
+综上，我们构造了一个陈述，并证明了它和它的否都不可证明。
 
 以上就是哥德尔不完备定理的证明。
+
+### 对证明的语义的分析
+
+先说一下哥德尔原文的介绍。我们可以把仅含一个自由变量的陈述编码成$R_0(x),R_1(x),...$。考虑以下陈述：“$R_x(x)$不可证明”，实际上这个陈述也是一个“仅含一个自由变量的陈述”，我们把它记作$R_m(x)$。考虑陈述$R_m(m)$，这个陈述的意思即是“$R_m(m)$不可证明”，也就是说，如果我们找到合适的编码，或许就能找到这么一个陈述，这个陈述的语义是“这个陈述不可证明”。对于这样的一个陈述，如果我们找到了一个它的证明，那就出现了不一致。如果我们找到了它的否的证明，这意味着它可证明，也出现了不一致。恰好，能表示自然数的形式化系统就有足够的能力表示“可证明”这个语义，因此我们得以构造出了这么一个陈述。
+
+下面来看看我们的证明。首先，我们把一个陈述“可证明”这一语义转化成了一个递归函数$Provable$在这个陈述编号上的停机问题。而从我们Universal程序的部分不难看出，由于递归函数可以一一编码到自然数，一个递归函数的停机问题其实是一个自然数上的问题$\exists t\ j_n(e,x,t)=Length(e)$，因此其实我们可以把“停机”写成一个自然数上的陈述（虽然我们并没有做这一步，但这一步肯定是可以做到的）。到此，我们把“可证明”这一问题转变到了一个自然数上的陈述，我们记为$Pr$。如果我们能证明一个自然数满足$Pr$，那么我们就能写出这个自然数编码的陈述的证明；反之，如果我们能写出这个自然数编码的陈述的证明，那么我们就能证明它满足$Pr$。我们接下来要做的是，找到一个陈述的编号$m'$，其否的编号是$m''$，$m'$满足$Pr$和$m''$满足$Pr$可以互相推出，这样如果我们使用的自然数公理是一致的，就说明了$m',m''$都是不可证明的。
+
+接下来看我们构造的$m'$。我们要引入符号$\sigma['a'\mapsto b]$，表示把陈述$\sigma$中的自由的变量$a$替换成$b$得到的陈述。比如$(P(a))['a'\mapsto b]\equiv (P(b)),(\forall a\ P(a))['a'\mapsto b]\equiv (\forall a\ P(a))$。
+
+我们在证明中构造的陈述$m$其实有这样的语义：“$\theta_y['y'\mapsto y]$不可证明”。也就是说$m$其实在说这么一件事：把编号为$y$的陈述中，自由出现的变量$'y'$替换成它的编号，所得到的陈述是不可证明的。注意，$m$自身就有两个自由的$y$，因此当我们写出$\theta_{m'}\equiv\theta_m['y'\mapsto m]$时，我们得到了“$\theta_m['y'\mapsto m]$不可证明”，也就是“$\theta_{m'}$不可证明”。这是我们构造$m'$的思路。
+
+### 个人的一些看法
+
+从一方面看，哥德尔不完备定理得以存在的原因是，皮亚诺自然数公理(特别是数学归纳法)加上一阶谓词(用以自指)的表达能力强大到了足以表达“这个命题不能证明”这一命题。
+
+从另一方面看，哥德尔不完备定理体现出来的是这样一件事情。对于谓词逻辑的约束$\forall$，其语义上需要带入所有自然数检验，而由于自然数上可以有非可判定问题（如$x\in W_x,x\notin W_x$）存在，这意味着有些$\forall$的性质我们没办法在有限步内证明。这就是说，对于某些命题被$\forall$约束的性质，例如“不可证明”的性质(任意一个证明都不是它的证明)，必须要把所有的证明都浏览一遍，才能说明每一个证明都不是该性质的证明。从而，“不可证明”这一命题的证明需要无限次的操作，而这样的操作并不是合法的操作，这样就导致了不可证明。
 
 ## Rosser对哥德尔结果的改进
 
@@ -981,7 +1020,7 @@ $$
 
 ### Gödel-Rosser Incompleteness Theorem
 
-如果皮亚诺算术公理系统是完备的，那么其中存在一个陈述$\tau$，无论$\tau$还是$\neg\tau$都不是可证明的。
+如果皮亚诺算术公理系统是一致的，那么其中存在一个陈述$\tau$，无论$\tau$还是$\neg\tau$都不是可证明的。
 
 也就是说$\omega$-consistent的条件可以去掉。
 
@@ -993,3 +1032,8 @@ $$
 
 [3] 傅育熙, 上海交通大学, 可计算理论(CS363)教案.
 
+[4] http://math.stackexchange.com/questions/1503695/understanding-g%C3%B6dels-1931-paper-proof-of-theorem-proposition-v-5
+
+[5] http://math.stackexchange.com/questions/356674/proof-of-proposition-theorem-v-in-g%C3%B6dels-1931-paper?rq=1
+
+[6] http://www.research.ibm.com/people/h/hirzel/papers/canon00-goedel.pdf
