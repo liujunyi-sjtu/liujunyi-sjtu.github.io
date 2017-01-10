@@ -1030,7 +1030,7 @@ $$
 
 如果皮亚诺算术公理系统是一致的，那么其中存在一个陈述$\tau$，无论$\tau$还是$\neg\tau$都不是可证明的。
 
-也就是说$\omega$-consistent的条件可以去掉。
+也就是说$\omega$-consistent的条件可以改进到consistent。
 
 # 参考资料
 
