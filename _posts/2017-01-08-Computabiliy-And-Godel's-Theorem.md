@@ -876,7 +876,7 @@ $$
 用我们后面的语言说，$\omega$-consistent是指不存在$\tau$使得（可以看到后面再回来看）
 
 $$
-num(\exists y\ \tau(y))\in Pr\land \forall y\ (num(\tau(y))\in Pr)
+num(\exists y\ \tau(y))\in Pr\land \forall y\ (num(\neg\tau(y))\in Pr)
 $$
 
 
@@ -911,6 +911,8 @@ $$
 
 1. $c_M(a_1,...,a_n)=1\Rightarrow num(\sigma(a_1,...,a_n))\in Pr$
 2. $c_M(a_1,...,a_n)\neq 1\Rightarrow num(\neg\sigma(a_1,...,a_n))\in Pr$
+
+在这里，$num(\sigma(a_1,...,a_n))$用下文的语言来说，指的其实是$Sb(Sb(...Sb(num(\sigma(x_1,...,x_n)),x_1,a_1)),...),x_n,a_n)$。简单的说，就是把陈述$\sigma(x_1,...,x_n)$中自由出现的每一个$x_1$到$x_n$对应替换成$a_1$到$a_n$，由此的得到的陈述的编码。
 
 (这个证明建议跳过)
 
@@ -969,46 +971,50 @@ $$
 
 我们先定义一个替换函数：
 
-对陈述的编码$n$，定义$Sb(n,a,b)$为：把$n$代表的陈述中，$a$编码的自由自然数变量替换为$b$编码的自然数(变量)，所得到的陈述。例如$Sb(num(P_1^1(x_1)\lor\forall n_1P_2^1(x_1)),num(x_1),num(0))=num(P_1^1(0)\lor\forall _1P_2^1(x_1))$，可以证明$Sb$是原始递归的，见参考资料[1]。下面为了便于阅读，我们会使用$x,y$之类的字母代替某个变量$x_1,x_2$
+对陈述的编码$n$，定义$Sb(n,a,b)$为：把$n$代表的陈述中，$a$编码的自由自然数变量替换为$b$编码的符号，所得到的陈述。例如$Sb(num(P_1^1(x_1)\lor\forall n_1P_2^1(x_1)),num(x_1),num(0))=num(P_1^1(0)\lor\forall _1P_2^1(x_1))$，可以证明$Sb$是原始递归的，见参考资料[1]。
 
-下面有点容易晕，我们记自然数$n$的编码为$nat(n)$。注意，$num$是符号到自然数的映射，而$nat(n)$是自然数到自然数的函数。为了区分符号的自然数，我们下面把变量符号$y$写成$'y'$
+下面有点容易晕，为了清晰，我们记自然数$n$的编码为$nat(n)= num(n)$。注意，$num$是所有符号到自然数的映射，而$nat(n)$是自然数到自然数的函数。下面为了强调这一区别，我们会在作为递归函数的参数时，把符号$x_1$写成$'x_1'$。（这有点类似用ASCII码代替字母）
 
-下面考虑函数$ProveFor(x,Sb(y,num('y'),nat(y))$，由于$ProveFor$和$Sb$是原始递归的，所以这个函数也是原始递归的。根据引理，存在一个陈述$\sigma$使得
+下面考虑函数$ProveFor(x,Sb(y,num('x_2'),nat(y))$，由于$ProveFor$和$Sb$是原始递归的，所以这个函数也是原始递归的。根据引理，我们能写出一个陈述$\sigma(x_1,x_2)$使得
 
 $$
-ProveFor(x,Sb(y,num('y'),nat(y))=1\Rightarrow num(\sigma(x,y))\in Pr\\
-ProveFor(x,Sb(y,num('y'),nat(y))\neq 1\Rightarrow num(\neg\sigma(x,y))\in Pr
+ProveFor(x,Sb(y,num('x_2'),nat(y))=1\Rightarrow num(\sigma(x,y))\in Pr\\
+ProveFor(x,Sb(y,num('x_2'),nat(y))\neq 1\Rightarrow num(\neg\sigma(x,y))\in Pr
 $$
 
-观察可知$\sigma(x,y)$的意思是：$x$是$Sb(y,num('y'),nat(y))$的证明。记$m\equiv num(\neg\exists x\ \sigma(x,y))$，即编号为$Sb(y,num(y),nat(y))$的陈述不存在证明。
+注意，这里$num(\sigma(x,y))\equiv Sb(Sb(\sigma(x_1,x_2),x_1,x),x_2,y)$，$x,y$是自然数。
 
-考虑$m'\equiv num(\neg\exists x\ \sigma(x,m))=num(\tau)$。
+观察可知$\sigma(x,y)$的意思是：$x$是$Sb(y,num('x_2'),nat(y))$的证明。记$m\equiv num(\neg\exists x_1\ \sigma(x_1,x_2))$。直观地说，$m$的语义是：编号为$Sb(x_2,num('x_2'),nat(x_2))$的陈述不存在证明。
 
-1. 下面我们先证明如果系统是一致的，那么$m'\notin Pr$
+考虑$m'\equiv num(\neg\exists x_1\ \sigma(x_1,m))= Sb(m,num('x_2'),m)$，记$\tau\equiv \neg\exists x_1\ \sigma(x_1,m)$。
 
-   反证假设$m'\in Pr$，也就是说$\exists x\ ProveFor(x,m')=1$，那么由$\omega$-consistent的假设，一定存在$n$使得$ProveFor(n,m')=1$。
+1. 下面我们先证明如果系统是$\omega$-consistent的，那么$m'\notin Pr$
 
-   观察$m'$我们发现$m'=num(\neg\exists x\ \sigma(x,m))=Sb(m,num('y'),nat(m))$，也就是说$ProveFor(n,Sb(m,num('y'),nat(m)))=1$，那么我们有$num(\sigma(n,m))\in Dom(Provable)$，如果$Provable$确实表示了所有能证明的陈述，根据$\sigma(n,m)\Rightarrow \exists x\ \sigma(x,m)$这一逻辑，我们有$num(\exists x\ \sigma(x,m))\in Dom(Provable)$。
+   反证假设$m'\in Pr$，也就是说$\exists x_1\ ProveFor(x_1,m')=1$，那么由$\omega$-consistent的假设，一定存在$n$使得$ProveFor(n,m')=1$。
 
-   然而一致性要求我们，不能有$num(\tau)\in Dom(Provable)\land num(\neg\tau)\in Dom(Provable)$。也就是说这里的结果和一致性矛盾了，故$m'\notin Dom(Provable)$
+   观察$m'$的定义$m'=num(\neg\exists x_1\ \sigma(x_1,m))=Sb(m,num('x_2'),nat(m))$，我们发现有$ProveFor(n,Sb(m,num('x_2'),nat(m)))=1$，那么我们有$num(\sigma(n,m))\in Pr$。由于$ProveFor$检验的确实是所有逻辑正确的证明，也就是说如果$a\Rightarrow a'$，那么$ProveFor(n,num(a))=1\Rightarrow \exists n' ProveFor(n',num(a'))=1$。根据$\sigma(n,m)\Rightarrow \exists x_1\ \sigma(x_1,m)$这一逻辑，我们有$num(\exists x_1\ \sigma(x_1,m))\in Pr$。
 
-2. 然后我们证明$m''=num(\neg\tau)=num(\exists x\ \sigma(x,m))\notin Pr$（其实这里还用了排中律）
+   然而一致性要求我们，不能有$num(\tau)\in Pr\land num(\neg\tau)\in Pr$。也就是说这里的结果和一致性矛盾了，故$m'\notin Pr$
 
-   根据上一个结论，我们有$\forall x\  ProveFor(x,m')\neq1$，也就是说$\forall x\ num(\neg\sigma(x,m))\in Pr$。这样，根据$\omega$-consistent的假设，我们有$num(\exists x\ \sigma(x,m))\notin Pr$
+2. 然后我们证明$num(\neg\tau)=num(\neg\neg\exists x_1\ \sigma(x_1,m))\notin Pr$
 
-综上，我们构造了一个陈述，并证明了它和它的否都不可证明。
+   由于排中律，我们只需要证明$m''\equiv num(\exists x_1\ \sigma(x_1,m))\notin Pr$
+
+   根据上一个结论，我们有$m'$不可证明，也就是$\forall x\  ProveFor(x,m')\neq1$，也就是说$\forall x\ num(\neg\sigma(x,m))\in Pr$。这样，根据$\omega$-consistent的假设，我们有$num(\exists x_1\ \sigma(x_1,m))\notin Pr$
+
+综上，我们构造了一个陈述$\tau$，并证明了它和它的否都不可证明。
 
 以上就是哥德尔不完备定理的证明。
 
 ### 对证明的语义的分析
 
-先说一下哥德尔原文的介绍。我们可以把仅含一个自由变量的陈述编码成$R_0(x),R_1(x),...$。考虑以下陈述：“$R_x(x)$不可证明”，实际上这个陈述也是一个“仅含一个自由变量的陈述”，我们把它记作$R_m(x)$。考虑陈述$R_m(m)$，这个陈述的意思即是“$R_m(m)$不可证明”，也就是说，如果我们找到合适的编码，或许就能找到这么一个陈述，这个陈述的语义是“这个陈述不可证明”。对于这样的一个陈述，如果我们找到了一个它的证明，那就出现了不一致。如果我们找到了它的否的证明，这意味着它可证明，也出现了不一致。**这里用到的也是我们前面说的对角线方法！**恰好，能表示自然数的形式化系统就有足够的能力表示“可证明”这个语义，因此我们得以构造出了这么一个陈述。
+先说一下哥德尔原文的介绍。我们可以把仅含一个自由变量的陈述编码成$R_0(x),R_1(x),...​$。考虑以下陈述：“$R_x(x)​$不可证明”，实际上这个陈述也是一个“仅含一个自由变量的陈述”，我们把它记作$R_m(x)​$。考虑陈述$R_m(m)​$，这个陈述的意思即是“$R_m(m)​$不可证明”，也就是说，如果我们找到合适的编码，或许就能找到这么一个陈述，这个陈述的语义是“这个陈述不可证明”。对于这样的一个陈述，如果我们找到了一个它的证明，那就出现了不一致。如果我们找到了它的否的证明，这意味着它可证明，也出现了不一致。**这里用到的也是我们前面说的对角线方法！**恰好，能表示自然数的形式化系统就有足够的能力表示“可证明”这个语义，因此我们得以构造出了这么一个陈述。
 
 下面来看看我们的证明。首先，我们把一个陈述“可证明”这一语义转化成了一个递归函数$Provable$在这个陈述编号上的停机问题。而从我们Universal程序的部分不难看出，由于递归函数可以一一编码到自然数，一个递归函数的停机问题其实是一个自然数上的问题$\exists t\ j_n(e,x,t)=Length(e)$，因此其实我们可以把“停机”写成一个自然数上的陈述（虽然我们并没有做这一步，但这一步肯定是可以做到的）。到此，我们把“可证明”这一问题转变到了一个自然数上的陈述，我们记为$Pr$。如果我们能证明一个自然数满足$Pr$，那么我们就能写出这个自然数编码的陈述的证明；反之，如果我们能写出这个自然数编码的陈述的证明，那么我们就能证明它满足$Pr$。我们接下来要做的是，找到一个陈述的编号$m'$，其否的编号是$m''$，$m'$满足$Pr$和$m''$满足$Pr$可以互相推出，这样如果我们使用的自然数公理是一致的，就说明了$m',m''$都是不可证明的。
 
 接下来看我们构造的$m'$。我们要引入符号$\sigma['a'\mapsto b]$，表示把陈述$\sigma$中的自由的变量$a$替换成$b$得到的陈述。比如$(P(a))['a'\mapsto b]\equiv (P(b)),(\forall a\ P(a))['a'\mapsto b]\equiv (\forall a\ P(a))$。
 
-我们在证明中构造的陈述$m$其实有这样的语义：“$\theta_y['y'\mapsto y]$不可证明”。也就是说$m$其实在说这么一件事：把编号为$y$的陈述中，自由出现的变量$'y'$替换成它的编号，所得到的陈述是不可证明的。注意，$m$自身就有两个自由的$y$，因此当我们写出$\theta_{m'}\equiv\theta_m['y'\mapsto m]$时，我们得到了“$\theta_m['y'\mapsto m]$不可证明”，也就是“$\theta_{m'}$不可证明”。这是我们构造$m'$的思路。
+我们在证明中构造的陈述$m$其实有这样的语义：“$\theta_{x_2}['x_2'\mapsto x_2]$不可证明”。也就是说$m$其实在说这么一件事：把编号为$x_2$的陈述中，自由出现的变量$'x_2'$替换成自然数$x_2$，所得到的陈述是不可证明的。注意，$m$自身中就有两个自由的$'x_2'$，因此当我们写出$\theta_{m'}\equiv\theta_m['x_2'\mapsto m]$时，我们得到了“$\theta_m['x_2'\mapsto m]$不可证明”，也就是“$\theta_{m'}$不可证明”。这是我们构造$m'$的思路。
 
 ### 个人的一些看法
 
